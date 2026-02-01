@@ -10,7 +10,7 @@ const Blogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/blogs?email=${mail}`);
+        const response = await fetch(`/api/blogs?email=${mail}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -26,7 +26,7 @@ const Blogs = () => {
 
   return (
     <div className="grid grid-cols-4 gap-6 my-12 mx-4 bg-gray-200">
-      {blogs.map((blog) => (
+      {/* {blogs.map((blog) => (
         <BlogCard
           key={blog._id}
           imageURL={blog.imageURL}
@@ -36,9 +36,22 @@ const Blogs = () => {
             year: 'numeric',
             month: 'long',
             day: 'numeric'
-          })}
-        />
-      ))}
+          })} */}
+          {Array.isArray(blogs) && blogs.map((blog) => (
+  <BlogCard
+    key={blog._id}
+    imageURL={blog.imageURL}
+    heading={blog.heading}
+    content={blog.content}
+    date={new Date(blog.date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })}
+  />
+))}
+        {/* />
+      ))} */}
     </div>
   );
 }
